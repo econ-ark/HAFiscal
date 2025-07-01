@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install markdown linting tools
+      run: |
+        npm install -g markdownlint-cli
+        npm install -g markdown-link-check
+        
+    - name: Run markdown linting
+      run: |
+        # Lint all markdown files using the repository config
+        markdownlint "**/*.md" --config .markdownlint.yml
+        
+    - name: Check markdown links
+      run: |
+        # Check all markdown files for broken links
+        find . -name "*.md" -not -path "./.git/*" -exec markdown-link-check {} \;
+        
+    - name: Validate file structure
+      run: |
+        # Basic checks for repository structure
+        echo "Checking for required files..."
+        
+        # Check if README exists
+        if [ ! -f "README.md" ]; then
+          echo "ERROR: README.md is missing"
+          exit 1
+        fi
+        
+        # Check if LICENSE exists
+        if [ ! -f "LICENSE" ]; then
+          echo "WARNING: LICENSE file is missing"
+        fi
+        
+        # Count markdown files
+        md_count=$(find . -name "*.md" -not -path "./.git/*" | wc -l)
+        echo "Found $md_count markdown files"
+        
+        if [ $md_count -eq 0 ]; then
+          echo "ERROR: No markdown files found"
+          exit 1
+        fi
+        
+        echo "File structure validation passed!"
+        
+    - name: Check shell scripts
+      run: |
+        # Find and validate any shell scripts
+        find . -name "*.sh" -not -path "./.git/*" | while read script; do
+          echo "Checking shell script: $script"
+          bash -n "$script" || exit 1
+        done
+        echo "Shell script syntax validation passed!" 

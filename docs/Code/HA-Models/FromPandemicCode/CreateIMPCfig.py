@@ -1,11 +1,17 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+from matplotlib_config import show_plot
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
 import pandas as pd
-import os
-import sys 
 from HARK.utilities import make_figs
 
 cwd             = os.getcwd()
@@ -76,4 +82,4 @@ for thePlots in plotToMake:
     else:
         make_figs('IMPCs_both', True , False, target_dir=figs_dir)
 
-plt.show()
+show_plot()

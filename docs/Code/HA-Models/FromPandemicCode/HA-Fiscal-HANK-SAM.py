@@ -1,4 +1,5 @@
 import os
+import sys
 
 import numpy as np
 from HARK.distribution import DiscreteDistribution
@@ -8,6 +9,11 @@ from Parameters import returnParameters
 import scipy.sparse as sp
 import matplotlib.pyplot as plt
 import time
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+from matplotlib_config import show_plot
 
 
 [init_dropout, init_highschool, init_college, init_ADEconomy, DiscFacDstns,\
@@ -162,7 +168,7 @@ plt.plot(UJAC[0].T[10])
 plt.plot(UJAC[0].T[40])
 plt.legend()
 plt.xlim(-1,50)
-plt.show()
+show_plot()
 
 
 #%%
@@ -694,7 +700,7 @@ print('time taken to compute all jacobians' , time.time() - start)
 #%%
 plt.plot(CJAC_all[1,-1,1].T[30])
 plt.plot(np.zeros(bigT))
-plt.show()
+show_plot()
 
 #%%
 weights_of_educ_types = [0.093, 0.527, 0.38]
@@ -778,7 +784,7 @@ CJACs_weighted_by_educ, AJACs_weighted_by_educ  = compute_average_JAC_by_educ(CJ
     
     
 plt.plot(CJACs_weighted[1].T[30])
-plt.show()
+show_plot()
 
 
 shock_params = ["transfers" , "r", "w" , "tau", "eta","DiscFac" , "UI_extend", "UI_rr" ]
@@ -846,7 +852,6 @@ os.chdir("../")
 
 #%%
 plt.plot(CJACs_weighted[4].T[30])
-plt.plot(np.zeros(bigT))
 plt.show()
 #%%
 import sequence_jacobian as sj

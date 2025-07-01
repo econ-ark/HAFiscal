@@ -23,7 +23,7 @@
 \provideboolean{TOC}\setboolean{TOC}{false}
 
 \provideboolean{draftmode}\setboolean{draftmode}{true}
-%\setboolean{draftmode}{false}
+\setboolean{draftmode}{false}
 \newcommand{\Draft}{\ifthenelse{\boolean{draftmode}}}
 \Draft{\usepackage{showlabels}
   \renewcommand{\showlabelsetlabel}[1]{\tiny #1}
@@ -55,6 +55,8 @@
   \usepackage{endnotes}
   \let\footnote=\endnote
   }{}  % {Web}
+
+\externaldocument{HAFiscal-online-appendix}	% For references to labels in the online appendix, needs HAFiscal-online-appendix.aux to exist in this directory 
 
 \begin{document}
 % Tell subfiles they are not being compiled as standalone files

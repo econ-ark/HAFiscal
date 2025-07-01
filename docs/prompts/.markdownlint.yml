@@ -1,0 +1,21 @@
+# Markdownlint configuration for AI Prompts repository
+# See: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+# Line length - allow longer lines for readability
+MD013:
+  line_length: 120
+  
+# Allow raw HTML (useful for complex formatting)
+MD033: false
+
+# Don't require H1 as first line (allow flexibility in document structure)
+MD041: false
+
+# Allow multiple consecutive blank lines (for document organization)
+MD012: false
+
+# Allow trailing punctuation in headers
+MD026: false
+
+# Allow duplicate headers (common in structured prompts)
+MD024: false 

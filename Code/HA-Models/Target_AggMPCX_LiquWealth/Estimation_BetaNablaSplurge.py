@@ -1,4 +1,5 @@
 # Import python tools
+import sys 
 import os
 import numpy as np
 import random
@@ -16,6 +17,11 @@ from SetupParamsCSTW import init_infinite
 
 # for plotting
 import matplotlib.pyplot as plt
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+from matplotlib_config import show_plot     # located in the parent directory
 
 # for output
 cwd             = os.getcwd()
@@ -496,7 +502,7 @@ for j in range(TypeCount):
 Run_estimation      = True
 Run_SplurgeZero     = True
 
-RunLoopofStarpoints = True 
+RunLoopofStarpoints = False 
 # Running the Loop of startpoints shows that that the algorithm converges to the same
 # solution independent of startpoint and thus strongly suggests that the global minimum was found
 
@@ -593,7 +599,7 @@ if Plot_Output:
     plt.ylabel('Cumulative liquid wealth share',fontsize=12)
     plt.legend(['Model','Data'])
     make_figs('LiquWealth_Distribution_comparison', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show()  
+    show_plot()  
     
     # Plot Lorentz curve
     plt.figure()
@@ -605,7 +611,7 @@ if Plot_Output:
     plt.ylabel('Cumulative liquid wealth share',fontsize=12)
     plt.legend(['Model, splurge $\geq$ 0','Model, splurge = 0','Data'])
     make_figs('LiquWealth_Distribution_comparison_splurge0', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show() 
+    show_plot() 
     
     # Plot Agg MPCx
     plt.figure()
@@ -618,7 +624,7 @@ if Plot_Output:
     plt.xlabel('year')
     plt.ylabel('% of lottery win spent')
     make_figs('AggMPC_LotteryWin_comparison_splurge0', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show()  
+    show_plot()  
     
     # Plot Agg MPCx
     plt.figure()
@@ -630,7 +636,7 @@ if Plot_Output:
     plt.xlabel('year')
     plt.ylabel('% of lottery win spent')
     make_figs('AggMPC_LotteryWin_comparison', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show() 
+    show_plot() 
     
     # Table initial MPCs along wealth q
     
@@ -720,7 +726,7 @@ print('Splurge = 0:', error_two_arrays(KY_target, Splurge0_Sol['KY_Model']))
 
 
 #%%
-Run_other_CRRA_values = True
+Run_other_CRRA_values = False
 if Run_other_CRRA_values:
     CRRA_values = [1,3]
     
@@ -800,7 +806,7 @@ if Plot_other_CRRA_values:
     plt.ylabel('Cumulative liquid wealth share',fontsize=12)
     plt.legend(['CRRA=1','CRRA = 3','Data'])
     make_figs('LiquWealth_Distribution_comparison_CRRA', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show()  
+    show_plot()  
     
     # Plot Agg MPCx
     plt.figure()
@@ -813,7 +819,7 @@ if Plot_other_CRRA_values:
     plt.xlabel('year')
     plt.ylabel('% of lottery win spent')
     make_figs('AggMPC_LotteryWin_comparison_CRRA', True , False, target_dir=Abs_Path+'/Figures/')
-    plt.show()  
+    show_plot()  
     
     # Table initial MPCs along wealth q
     
@@ -907,7 +913,7 @@ if Run_3D_Plot:
     fig.colorbar(surf, ax=ax, shrink=0.5, aspect=10)
      
     # Show the plot
-    plt.show()
+    show_plot()
 
 
 

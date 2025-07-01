@@ -44,7 +44,7 @@ def Simulate(Run_Dict,figs_dir,Parametrization='Baseline'):
     try:
         os.mkdir(figs_dir)
     except OSError:
-        print ("Creation of the directory %s failed" % figs_dir)
+        print ("Directory %s already exists" % figs_dir)
     else:
         print ("Successfully created the directory %s " % figs_dir)
     
@@ -291,5 +291,8 @@ def Simulate(Run_Dict,figs_dir,Parametrization='Baseline'):
     if Run_TaxCut:
         Run_FullRoutineNoRecessions('TaxCut')
   
+    
+ 
+
     
  
