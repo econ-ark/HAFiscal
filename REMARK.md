@@ -4,7 +4,7 @@
 github_repo_url: https://github.com/econ-ark/HAFiscal
 remark-name: HAFiscal # required
 notebooks: # path to any notebooks within the repo - optional
-  - HAFiscal-HANK-and-SAM.ipynb
+  - HANK-and-SAM-tutorial.ipynb
 dashboards: # path to any dashboards (Voila) within the repo - optional
   - dashboard/app.ipynb
 tags: # Use the relevant tags
