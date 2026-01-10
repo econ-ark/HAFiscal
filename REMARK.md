@@ -1,11 +1,7 @@
 ---
 # This is metadata for indexing HAFiscal as a 'REMARK'
 # in the https://github.com/econ-ark.org project
-<<<<<<< HEAD
-github_repo_url: https://github.com/econ-ark/HAFiscal # required
-=======
 github_repo_url: https://github.com/econ-ark/HAFiscal
->>>>>>> upstream/main
 remark-name: HAFiscal # required
 notebooks: # path to any notebooks within the repo - optional
   - HAFiscal-dashboard.ipynb
