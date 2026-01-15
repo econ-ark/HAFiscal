@@ -16,7 +16,7 @@ from HARK.ConsumptionSaving.ConsIndShockModel import (
     IndShockConsumerType,
     PerfForesightConsumerType,
 )
-from HARK.distribution import MarkovProcess, Uniform, calc_expectation
+from HARK.distributions import MarkovProcess, Uniform, calc_expectation
 from HARK.interpolation import (
     CubicInterp,
     LinearInterp,

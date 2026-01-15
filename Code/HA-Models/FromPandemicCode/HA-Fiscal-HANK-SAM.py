@@ -2,7 +2,7 @@ import os
 import sys
 
 import numpy as np
-from HARK.distribution import DiscreteDistribution
+from HARK.distributions import DiscreteDistribution
 from ConsMarkovModel import MarkovConsumerType
 from copy import deepcopy
 from Parameters import returnParameters

@@ -12,7 +12,7 @@ from copy import deepcopy
 from collections import namedtuple 
 import pickle
 import random 
-from HARK.distribution import DiscreteDistribution, Uniform
+from HARK.distributions import DiscreteDistribution, Uniform
 from HARK import multi_thread_commands, multi_thread_commands_fake
 from HARK.utilities import get_percentiles, get_lorenz_shares
 from HARK.estimation import minimize_nelder_mead
@@ -485,7 +485,7 @@ def calcMPCbyWealthQ(Agents,lotterySize):
                 P_hist[:,period] = ThisType.shocks["PermShk"]
                 for i_agent in range(ThisType.AgentCount):
                     if ThisType.shocks["TranShk"][i_agent] == 1.0: # indicator of death
-                        a_actu[i_agent,period-1,k] = np.exp(np.log(0.00001)) #base_params['aNrmInitMean']
+                        a_actu[i_agent,period-1,k] = np.exp(np.log(0.00001)) #base_params['kLogInitMean']
                 m_adj = a_actu[:,period-1,k]*R_kink/ThisType.shocks["PermShk"] + ThisType.shocks["TranShk"] + Lnrm - SplurgeNrm #continue with resources from last period
                 for aa in range(0,ThisType.AgentCount):
                     c_actu[aa,period,k] = ThisType.cFunc[0][ThisType.MicroMrkvNow[aa]](m_adj[aa],1) + SplurgeNrm[aa]
@@ -668,7 +668,7 @@ IncomeDstn_unemp_nobenefits = DiscreteDistribution(np.array([1.0]), [np.array([1
 for ThisType in BaseTypeList:
     EmployedIncomeDstn = deepcopy(ThisType.IncShkDstn[0])
     ThisType.IncShkDstn = [[ThisType.IncShkDstn[0]] + [IncomeDstn_unemp]*UBspell_normal + [IncomeDstn_unemp_nobenefits]]
-    ThisType.IncomeDstn_base = ThisType.IncShkDstn
+    ThisType.IncShkDstn_base = ThisType.IncShkDstn
     
 # Make the overall list of types
 TypeList = []
@@ -792,8 +792,8 @@ def betasObjFunc(betas, spreads, GICfactors, target_option=1, print_mode=False, 
     AggDemandEconomy.save_state()   
 
     # Simulate each type to get a new steady state solution 
-    # solve: done in AggDemandEconomy.solve(), initializeSim: done in AggDemandEconomy.reset() 
-    # baseline_commands = ['solve()', 'initializeSim()', 'simulate()', 'saveState()']
+    # solve: done in AggDemandEconomy.solve(), initialize_sim: done in AggDemandEconomy.reset() 
+    # baseline_commands = ['solve()', 'initialize_sim()', 'simulate()', 'save_state()']
     # baseline_commands = ['simulate()', 'save_state()']
     baseline_commands = ['solve()', 'initialize_sim()', 'simulate()', 'save_state()', 'unpack_cFunc()']
     multi_thread_commands_fake(TypeListNew, baseline_commands)
@@ -975,8 +975,8 @@ def betasObjFuncEduc(beta, spread, GICx, educ_type=2, print_mode=False, print_fi
     AggDemandEconomy.save_state()   
 
     # Simulate each type to get a new steady state solution 
-    # solve: done in AggDemandEconomy.solve(), initializeSim: done in AggDemandEconomy.reset() 
-    # baseline_commands = ['solve()', 'initializeSim()', 'simulate()', 'saveState()']
+    # solve: done in AggDemandEconomy.solve(), initialize_sim: done in AggDemandEconomy.reset() 
+    # baseline_commands = ['solve()', 'initialize_sim()', 'simulate()', 'save_state()']
     # baseline_commands = ['simulate()', 'save_state()']
     baseline_commands = ['solve()', 'initialize_sim()', 'simulate()', 'save_state()']
     multi_thread_commands_fake(TypeListAll, baseline_commands)
