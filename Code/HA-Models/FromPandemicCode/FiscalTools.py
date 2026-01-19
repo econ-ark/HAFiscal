@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
-from HARK import multiThreadCommands, multiThreadCommandsFake
+from HARK import multi_thread_commands, multi_thread_commands_fake
 
 mystr = lambda x : '{:.2f}'.format(x)
 mystr2 = lambda x : '{:.3f}'.format(x)
@@ -47,9 +47,9 @@ def runExperiment(agents,RecessionShock = False,TaxCutShock = False, \
     # Update the perceived and actual Markov arrays, solve and re-draw shocks if
     # warranted, then impose the recession shock, and finally
     # simulate the model for three years.
-    experiment_commands = ['updateMrkvArray()', 'solveIfChanged()',
-                           'makeShocksIfChanged()', 'initializeSim()',
-                           'hitWithRecessionShock()',
+    experiment_commands = ['update_mrkv_array()', 'solve_if_changed()',
+                           'make_shocks_if_changed()', 'initialize_sim()',
+                           'hit_with_recession_shock()',
                            'simulate()']
     multiThreadCommandsFake(agents, experiment_commands)
     

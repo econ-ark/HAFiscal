@@ -2,7 +2,7 @@ def Simulate(Run_Dict,figs_dir,Parametrization='Baseline'):
     
     
     from AggFiscalModel import AggFiscalType, AggregateDemandEconomy
-    from HARK.distribution import DiscreteDistribution
+    from HARK.distributions import DiscreteDistribution
     from time import time
     import numpy as np
     from copy import deepcopy

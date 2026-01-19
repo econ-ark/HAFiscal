@@ -2,7 +2,7 @@ from EstimParameters import T_sim, init_dropout, init_highschool, init_college, 
      AgentCountTotal, EducShares, base_dict, figs_dir, num_max_iterations_solvingAD,\
      convergence_tol_solvingAD, UBspell_normal, num_base_MrkvStates
 from EstimAggFiscalModel import AggFiscalType, AggregateDemandEconomy
-from HARK.distribution import DiscreteDistribution
+from HARK.distributions import DiscreteDistribution
 import numpy as np
 from copy import deepcopy
 
@@ -16,9 +16,9 @@ InfHorizonTypeAgg_d = AggFiscalType(**init_dropout)
 InfHorizonTypeAgg_h = AggFiscalType(**init_highschool)
 InfHorizonTypeAgg_c = AggFiscalType(**init_college)
 AggDemandEconomy = AggregateDemandEconomy(**init_ADEconomy)
-InfHorizonTypeAgg_d.getEconomyData(AggDemandEconomy)
-InfHorizonTypeAgg_h.getEconomyData(AggDemandEconomy)
-InfHorizonTypeAgg_c.getEconomyData(AggDemandEconomy)
+InfHorizonTypeAgg_d.get_economy_data(AggDemandEconomy)
+InfHorizonTypeAgg_h.get_economy_data(AggDemandEconomy)
+InfHorizonTypeAgg_c.get_economy_data(AggDemandEconomy)
 BaseTypeList = [InfHorizonTypeAgg_d, InfHorizonTypeAgg_h, InfHorizonTypeAgg_c ]
   
 # Fill in the Markov income distribution for each base type
@@ -29,7 +29,7 @@ IncomeDstn_unemp_nobenefits = DiscreteDistribution(np.array([1.0]), [np.array([1
 for ThisType in BaseTypeList:
     EmployedIncomeDstn = deepcopy(ThisType.IncomeDstn[0])
     ThisType.IncomeDstn[0] = [ThisType.IncomeDstn[0]] + [IncomeDstn_unemp]*UBspell_normal + [IncomeDstn_unemp_nobenefits] 
-    ThisType.IncomeDstn_base = ThisType.IncomeDstn
+    ThisType.IncShkDstn_base = ThisType.IncomeDstn
     
 # Make the overall list of types
 TypeList = []
@@ -38,7 +38,7 @@ myAggTotal = 0
 for e in range(num_types):
     for b in range(DiscFacDstns[0].atoms[0].size):
         DiscFac = DiscFacDstns[e].atoms[0][b]
-        AgentCount = int(np.floor(AgentCountTotal*EducShares[e]*DiscFacDstns[e].pmf[b]))
+        AgentCount = int(np.floor(AgentCountTotal*EducShares[e]*DiscFacDstns[e].pmv[b]))
         ThisType = deepcopy(BaseTypeList[e])
         ThisType.AgentCount = AgentCount
         ThisType.DiscFac = DiscFac
@@ -54,13 +54,13 @@ AggDemandEconomy.solve()
 
 AggDemandEconomy.reset()
 for agent in AggDemandEconomy.agents:
-    agent.initializeSim()
+    agent.initialize_sim()
     agent.AggDemandFac = 1.0
     agent.RfreeNow = 1.0
     agent.CaggNow = 1.0
 
-AggDemandEconomy.makeHistory()   
-AggDemandEconomy.saveState()   
+AggDemandEconomy.make_history()   
+AggDemandEconomy.save_state()   
 AggDemandEconomy.switchToCounterfactualMode("base")
 AggDemandEconomy.makeIdiosyncraticShockHistories()
 

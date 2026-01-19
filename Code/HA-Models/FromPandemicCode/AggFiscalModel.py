@@ -4,10 +4,10 @@ This file has an extension of MarkovConsumerType that is used for the Fiscal pro
 import warnings
 import numpy as np
 import scipy.sparse as sp
-from HARK.distribution import DiscreteDistribution, Uniform
+from HARK.distributions import DiscreteDistribution, Uniform
 from HARK.ConsumptionSaving.ConsMarkovModel import MarkovConsumerType
 from HARK.ConsumptionSaving.ConsIndShockModel import ConsumerSolution
-from HARK.ConsumptionSaving.ConsAggShockModel import MargValueFunc2D, AggShockConsumerType
+from HARK.ConsumptionSaving.ConsAggShockModel import MargValueFuncCRRA as MargValueFunc2D, AggShockConsumerType
 from HARK.interpolation import LinearInterp, BilinearInterp, VariableLowerBoundFunc2D, \
                                 LinearInterpOnInterp1D, LowerEnvelope2D, UpperEnvelope, ConstantFunction
 from HARK import Market
@@ -36,7 +36,7 @@ class AggFiscalType(MarkovConsumerType):
         self.add_to_time_vary('IncShkDstn','PermShkDstn','TranShkDstn')
         self.add_to_time_inv('aXtraGrid', 'Rfree')
         
-    def updateSolutionTerminal(self):
+    def update_solution_terminal(self):
         AggShockConsumerType.update_solution_terminal(self)
         # Make replicated terminal period solution
         StateCount = self.MrkvArray[-1].shape[0]
@@ -47,7 +47,7 @@ class AggFiscalType(MarkovConsumerType):
     def pre_solve(self):
         self.MrkvArray = self.MrkvArray
         MarkovConsumerType.pre_solve(self)
-        self.updateSolutionTerminal()
+        self.update_solution_terminal()
         
     def initialize_sim(self):
         MarkovConsumerType.initialize_sim(self)
@@ -104,7 +104,7 @@ class AggFiscalType(MarkovConsumerType):
         self.ADFunc = Economy.ADFunc                 # Function that takes aggregate consumption to agg. demand function
         self.add_to_time_inv('Cgrid', 'CFunc','ADFunc','num_experiment_periods','num_base_MrkvStates')
         # self.PermGroFacAgg = Economy.PermGroFacAgg   # Aggregate permanent productivity growth
-        #self.addToTimeInv('Cgrid', 'CFunc', 'PermGroFacAgg','ADFunc')
+        #self.add_to_time_inv('Cgrid', 'CFunc', 'PermGroFacAgg','ADFunc')
         
     def save_state(self):
         '''

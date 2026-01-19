@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import sys
-from HARK.distribution import Uniform
+from HARK.distributions import Uniform
 
 # Targets in the estimation of the discount factor distributions for each 
 # education level. 
@@ -240,10 +240,10 @@ init_dropout = {"cycles": 0, # This will be overwritten at type construction
                 "aXtraNestFac": aXtraNestFac,
                 "CubicBool": False,
                 "vFuncBool": False,
-                'aNrmInitMean': np.log(0.00001), # Initial assets are zero
-                'aNrmInitStd': 0.0,
-                'pLvlInitMean': pLvlInitMean_d,
-                'pLvlInitStd': pLvlInitStd_d,
+                'kLogInitMean': np.log(0.00001), # Initial assets are zero
+                'kLogInitStd': 0.0,
+                'pLogInitMean': pLvlInitMean_d,
+                'pLogInitStd': pLvlInitStd_d,
                 "MrkvPrbsInit" : np.array(list(init_mrkv_dist_d)),
                 'Urate_normal' : Urate_normal_d,
                 'Uspell_normal' : Uspell_normal,
@@ -263,8 +263,8 @@ adj_highschool = {
     "CondMrkvArrays_base" : CondMrkvArrays_base_h,
     "MrkvArray" : MrkvArray_base_h, 
     "CondMrkvArrays" : CondMrkvArrays_base_h,
-    'pLvlInitMean': pLvlInitMean_h,
-    'pLvlInitStd': pLvlInitStd_h,
+    'pLogInitMean': pLvlInitMean_h,
+    'pLogInitStd': pLvlInitStd_h,
     "MrkvPrbsInit" : np.array(list(init_mrkv_dist_h)),
     'Urate_normal' : Urate_normal_h,
     'EducType' : 1}
@@ -278,8 +278,8 @@ adj_college = {
     "CondMrkvArrays_base" : CondMrkvArrays_base_c,
     "MrkvArray" : MrkvArray_base_c, 
     "CondMrkvArrays" : CondMrkvArrays_base_c,
-    'pLvlInitMean': pLvlInitMean_c,
-    'pLvlInitStd': pLvlInitStd_c,
+    'pLogInitMean': pLvlInitMean_c,
+    'pLogInitStd': pLvlInitStd_c,
     "MrkvPrbsInit" : np.array(list(init_mrkv_dist_c)),
     'Urate_normal' : Urate_normal_c,
     'EducType' : 2}
